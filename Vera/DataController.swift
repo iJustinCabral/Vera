@@ -47,7 +47,7 @@ class DataController: ObservableObject {
         
         for i in 1...5 {
             let project = Project(context: viewContext)
-            project.title = "Project \(i)"
+            project.title = "Class \(i)"
             project.items = []
             project.creationDate = Date()
             project.closed = Bool.random()

@@ -13,6 +13,7 @@ extension Binding {
             get: { self.wrappedValue },
             set: { newValue in
                 self.wrappedValue = newValue
+                handler()
             }
         )
     }

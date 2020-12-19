@@ -8,13 +8,97 @@
 import SwiftUI
 
 struct EditProjectView: View {
+    
+    @EnvironmentObject var dataController: DataController
+    @Environment(\.presentationMode) var presentationMode
+    
+    @State private var title: String
+    @State private var detail: String
+    @State private var color: String
+    @State private var showingDeleteConfirm = false
+    
+    
+    let project: Project
+    let colorColumns = [ GridItem(.adaptive(minimum: 44)) ]
+    
+    init(project: Project) {
+        self.project = project
+        
+        _title = State(wrappedValue: project.projectTitle)
+        _detail = State(wrappedValue: project.projectDetail)
+        _color = State(wrappedValue: project.projectColor)
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Form {
+            
+            Section(header: Text("Basic settings")) {
+                TextField("Class name", text: $title.onChange(update))
+                TextField("Description of class", text: $detail.onChange(update))
+            }
+            
+            Section(header: Text("Custom class color")) {
+                LazyVGrid(columns: colorColumns) {
+                    ForEach(Project.colors, id: \.self) { item in
+                        ZStack {
+                            Color(item)
+                                .aspectRatio(1, contentMode: .fit)
+                                .cornerRadius(6)
+                            
+                            if item == color {
+                                Image(systemName: "checkmark.circle")
+                                    .foregroundColor(.white)
+                                    .font(.largeTitle)
+                            }
+                        }
+                        .onTapGesture {
+                            color = item
+                            update()
+                        }
+                    }
+                }
+                .padding(.vertical)
+            }
+            
+            Section(footer: Text("Finishing a class moves it from Current to Finished tab; deleting it removes the class entirely.")) {
+                Button(project.closed ? "Reopen this class" : "Finish this class") {
+                    project.closed.toggle()
+                    update()
+                }
+                
+                Button("Delete this class") {
+                    showingDeleteConfirm.toggle()
+                }
+                .accentColor(.red)
+            }
+            
+            
+        }
+        .navigationTitle("Edit Class")
+        .onDisappear(perform: dataController.save)
+        .alert(isPresented: $showingDeleteConfirm) {
+            Alert(title: Text("Delete Class?"),
+                  message: Text("Are you sure you want to delete this class? It will remove all the items it contains."),
+                  primaryButton: .default(Text("Delete"), action: delete),
+                  secondaryButton: .cancel()
+            )
+        }
+    }
+    
+    func update() {
+        project.title = title
+        project.detail = detail
+        project.color = color
+    }
+    
+    func delete() {
+        dataController.delete(project)
+        presentationMode.wrappedValue.dismiss()
     }
 }
 
 struct EditProjectView_Previews: PreviewProvider {
     static var previews: some View {
-        EditProjectView()
+        EditProjectView(project: Project.example)
     }
 }
