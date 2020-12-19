@@ -11,6 +11,11 @@
 		D0CE5E52258D60510074DA07 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CE5E51258D60510074DA07 /* ContentView.swift */; };
 		D0CE5E54258D60520074DA07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0CE5E53258D60520074DA07 /* Assets.xcassets */; };
 		D0CE5E57258D60520074DA07 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0CE5E56258D60520074DA07 /* Preview Assets.xcassets */; };
+		D0CE5E61258D62D90074DA07 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0CE5E5F258D62D90074DA07 /* Main.xcdatamodeld */; };
+		D0CE5E64258D6B620074DA07 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CE5E63258D6B620074DA07 /* DataController.swift */; };
+		D0CE5E6B258D71850074DA07 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CE5E6A258D71850074DA07 /* CloudKit.framework */; };
+		D0CE5E6D258D72750074DA07 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CE5E6C258D72750074DA07 /* HomeView.swift */; };
+		D0CE5E71258D72F10074DA07 /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0CE5E70258D72F10074DA07 /* ProjectsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +25,12 @@
 		D0CE5E53258D60520074DA07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0CE5E56258D60520074DA07 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D0CE5E58258D60520074DA07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0CE5E60258D62D90074DA07 /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
+		D0CE5E63258D6B620074DA07 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		D0CE5E67258D715F0074DA07 /* Vera.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vera.entitlements; sourceTree = "<group>"; };
+		D0CE5E6A258D71850074DA07 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		D0CE5E6C258D72750074DA07 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		D0CE5E70258D72F10074DA07 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0CE5E6B258D71850074DA07 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +50,7 @@
 			children = (
 				D0CE5E4E258D60510074DA07 /* Vera */,
 				D0CE5E4D258D60510074DA07 /* Products */,
+				D0CE5E69258D71850074DA07 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,7 +67,12 @@
 			children = (
 				D0CE5E4F258D60510074DA07 /* VeraApp.swift */,
 				D0CE5E51258D60510074DA07 /* ContentView.swift */,
+				D0CE5E6C258D72750074DA07 /* HomeView.swift */,
+				D0CE5E70258D72F10074DA07 /* ProjectsView.swift */,
+				D0CE5E63258D6B620074DA07 /* DataController.swift */,
+				D0CE5E5F258D62D90074DA07 /* Main.xcdatamodeld */,
 				D0CE5E53258D60520074DA07 /* Assets.xcassets */,
+				D0CE5E67258D715F0074DA07 /* Vera.entitlements */,
 				D0CE5E58258D60520074DA07 /* Info.plist */,
 				D0CE5E55258D60520074DA07 /* Preview Content */,
 			);
@@ -67,6 +85,14 @@
 				D0CE5E56258D60520074DA07 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D0CE5E69258D71850074DA07 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D0CE5E6A258D71850074DA07 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +164,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0CE5E71258D72F10074DA07 /* ProjectsView.swift in Sources */,
+				D0CE5E61258D62D90074DA07 /* Main.xcdatamodeld in Sources */,
+				D0CE5E64258D6B620074DA07 /* DataController.swift in Sources */,
 				D0CE5E52258D60510074DA07 /* ContentView.swift in Sources */,
+				D0CE5E6D258D72750074DA07 /* HomeView.swift in Sources */,
 				D0CE5E50258D60510074DA07 /* VeraApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,6 +297,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Vera/Vera.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Vera/Preview Content\"";
 				DEVELOPMENT_TEAM = 49Q63X4R6X;
@@ -289,6 +320,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Vera/Vera.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Vera/Preview Content\"";
 				DEVELOPMENT_TEAM = 49Q63X4R6X;
@@ -328,6 +360,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D0CE5E5F258D62D90074DA07 /* Main.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D0CE5E60258D62D90074DA07 /* Main.xcdatamodel */,
+			);
+			currentVersion = D0CE5E60258D62D90074DA07 /* Main.xcdatamodel */;
+			path = Main.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D0CE5E44258D60510074DA07 /* Project object */;
 }
