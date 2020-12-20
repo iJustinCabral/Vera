@@ -12,7 +12,7 @@ extension Project {
     static let colors = ["Pink", "Purple", "Red", "Orange", "Gold", "Green", "Teal", "Light Blue", "Dark Blue", "Midnight", "Dark Gray", "Gray"]
     
     var projectTitle: String {
-        title ?? "New Project"
+        title ?? "Class"
     }
     
     var projectDetail: String {
@@ -23,10 +23,21 @@ extension Project {
         color ?? "Light Blue"
     }
     
+    var projectFinishDate: Date {
+        finishDate ?? Date()
+    }
+    
+    var projectStartDate: Date {
+        creationDate ?? Date()
+    }
+    
     var projectItems: [Item] {
-        let itemsArray = items?.allObjects as? [Item] ?? []
-
-        return itemsArray.sorted { first, second in
+        items?.allObjects as? [Item] ?? []
+    }
+    
+    var projectItemsDefaultSorted: [Item] {
+    
+        projectItems.sorted { first, second in
             
             if first.completed == false {
                 if second.completed == true {
@@ -67,10 +78,22 @@ extension Project {
         project.detail = "This is an example class"
         project.closed = true
         project.creationDate = Date()
+        project.finishDate = Date().addingTimeInterval(86000)
         
         return project
     }
     
+    func projectItems(using sortOrder: Item.SortOrder) -> [Item] {
+        switch sortOrder {
+        case .title:
+            return projectItems.sorted(by: \Item.itemTitle)
+        case .creationDate:
+            return projectItems.sorted(by: \Item.itemCreationDate)
+        case .dueDate:
+            return projectItems.sorted(by: \Item.itemDueDate)
+        case .optimized:
+            return projectItemsDefaultSorted
+        }
+    }
 
-    
 }

@@ -8,8 +8,13 @@
 import Foundation
 
 extension Item {
+    
+    enum SortOrder {
+        case optimized, title, creationDate, dueDate
+    }
+    
     var itemTitle: String {
-        title ?? ""
+        title ?? "New Item"
     }
     
     var itemDetail: String {
@@ -18,6 +23,10 @@ extension Item {
     
     var itemCreationDate: Date {
         creationDate ?? Date()
+    }
+    
+    var itemDueDate: Date {
+        dueDate ?? Date().addingTimeInterval(86000)
     }
     
     static var example: Item {
@@ -29,6 +38,7 @@ extension Item {
         item.detail = "This is an example item"
         item.priority = 3
         item.creationDate = Date()
+        item.dueDate = Date()
         
         return item
     }

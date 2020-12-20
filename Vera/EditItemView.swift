@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct EditItemView: View {
-    
     @EnvironmentObject var dataController: DataController
     
     @State private var title: String
     @State private var detail: String
     @State private var priority: Int
     @State private var completed: Bool
+    @State private var dueDate: Date
     
     let item: Item
+    let FUTURE_DATE: Double = 900000000000000000
     
     init(item: Item) {
         self.item = item
@@ -25,26 +26,33 @@ struct EditItemView: View {
         _detail = State(wrappedValue: item.itemDetail)
         _priority = State(wrappedValue: Int(item.priority))
         _completed = State(wrappedValue: item.completed)
+        _dueDate = State(wrappedValue: item.itemDueDate)
     }
     
     var body: some View {
         
         Form {
-            Section(header: Text("Basic settings")) {
+            Section(header: Text("Basic description")) {
                 TextField("Item Name:", text: $title.onChange(update))
                 TextField("Description:", text: $detail.onChange(update))
+            }
+            
+            Section(header: Text("Due Date")) {
+                DatePicker(selection: $dueDate.onChange(update), in: ...Date().addingTimeInterval(TimeInterval(FUTURE_DATE)), displayedComponents: .date) {
+                    Text("Due date")
+                }
             }
             
             Section(header: Text("Priority")) {
                 Picker("Priority", selection: $priority.onChange(update)) {
                     Text("Low").tag(1)
                     Text("Medium").tag(2)
-                    Text("Height").tag(3)
-                }
+                    Text("High").tag(3)
+                }.pickerStyle(SegmentedPickerStyle())
             }
             
             Section {
-                Toggle("Mark Class Finished", isOn: $completed.onChange(update))
+                Toggle("Mark as complete", isOn: $completed.onChange(update))
             }
             
         }
@@ -60,6 +68,7 @@ struct EditItemView: View {
         item.detail = detail
         item.priority = Int16(priority)
         item.completed = completed
+        item.dueDate = dueDate
     }
 }
 

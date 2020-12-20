@@ -22,18 +22,25 @@ struct ContentView: View {
                     Text("Home")
                 }
             
-            ProjectsView(showClosedProjects: false)
-                .tag(ProjectsView.classesTag)
+            ProjectView(showClosedProjects: false)
+                .tag(ProjectView.classesTag)
                 .tabItem {
                     Image(systemName: "pencil.slash")
                     Text("Classes")
                 }
             
-            ProjectsView(showClosedProjects: true)
-                .tag(ProjectsView.finishedTag)
+            ProjectView(showClosedProjects: true)
+                .tag(ProjectView.finishedTag)
                 .tabItem {
                     Image(systemName: "archivebox")
-                    Text("Finished")
+                    Text("Archive")
+                }
+            
+            AwardsView()
+                .tag(AwardsView.tag)
+                .tabItem {
+                    Image(systemName: "rosette")
+                    Text("Awards")
                 }
         }
     }

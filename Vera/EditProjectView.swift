@@ -15,11 +15,15 @@ struct EditProjectView: View {
     @State private var title: String
     @State private var detail: String
     @State private var color: String
+    @State private var startDate: Date
+    @State private var finishDate: Date
     @State private var showingDeleteConfirm = false
     
     
     let project: Project
     let colorColumns = [ GridItem(.adaptive(minimum: 44)) ]
+    let FUTURE_DATE: Double = 900000000000000000
+
     
     init(project: Project) {
         self.project = project
@@ -27,17 +31,30 @@ struct EditProjectView: View {
         _title = State(wrappedValue: project.projectTitle)
         _detail = State(wrappedValue: project.projectDetail)
         _color = State(wrappedValue: project.projectColor)
+        _startDate = State(wrappedValue: project.projectStartDate)
+        _finishDate = State(wrappedValue: project.projectFinishDate)
     }
     
     var body: some View {
         Form {
             
-            Section(header: Text("Basic settings")) {
+            Section(header: Text("Basic description")) {
                 TextField("Class name", text: $title.onChange(update))
-                TextField("Description of class", text: $detail.onChange(update))
+                TextField("Example: Fall 2020 ", text: $detail.onChange(update))
             }
             
-            Section(header: Text("Custom class color")) {
+            Section(header: Text("Start - Finish Date")) {
+                DatePicker(selection: $startDate.onChange(update), in: ...Date().addingTimeInterval(TimeInterval(FUTURE_DATE)), displayedComponents: .date) {
+                    Text("Start Date")
+                }
+                
+                DatePicker(selection: $finishDate.onChange(update), in: ...Date().addingTimeInterval(TimeInterval(FUTURE_DATE)), displayedComponents: .date) {
+                    Text("Finish Date")
+                }
+                
+            }
+            
+            Section(header: Text("Class color")) {
                 LazyVGrid(columns: colorColumns) {
                     ForEach(Project.colors, id: \.self) { item in
                         ZStack {
@@ -48,7 +65,7 @@ struct EditProjectView: View {
                             if item == color {
                                 Image(systemName: "checkmark.circle")
                                     .foregroundColor(.white)
-                                    .font(.largeTitle)
+                                    .font(.title)
                             }
                         }
                         .onTapGesture {
@@ -86,9 +103,14 @@ struct EditProjectView: View {
     }
     
     func update() {
+        project.objectWillChange.send()
+        
         project.title = title
         project.detail = detail
         project.color = color
+        project.creationDate = startDate
+        project.finishDate = finishDate
+                
     }
     
     func delete() {

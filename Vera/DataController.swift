@@ -28,7 +28,7 @@ class DataController: ObservableObject {
     init(inMemory: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "Main")
         
-        // Gives us the option to keep data stored in RAM. This makes it nice for testing our database
+        // Gives us the option to keep data stored in RAM. This makes it nice for unit testing later
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }
@@ -50,6 +50,7 @@ class DataController: ObservableObject {
             project.title = "Class \(i)"
             project.items = []
             project.creationDate = Date()
+            project.finishDate = Date().addingTimeInterval(86000)
             project.closed = Bool.random()
             
             for j in 1...10 {
@@ -84,5 +85,28 @@ class DataController: ObservableObject {
         
         _ = try? container.viewContext.execute(batchDeleteRequest1)
         _ = try? container.viewContext.execute(batchDeleteRequest2)
+    }
+    
+    func count<T>(for fetchRequest: NSFetchRequest<T>) -> Int {
+        (try? container.viewContext.count(for: fetchRequest)) ?? 0
+    }
+    
+    func hasEarned(award: Award) -> Bool {
+        switch award.criterion {
+        case "items":
+            let fetchRequest: NSFetchRequest<Item> = NSFetchRequest(entityName: "Item")
+            let awardCount = count(for: fetchRequest)
+            return awardCount >= award.value
+            
+        case "complete":
+            let fetchRequest: NSFetchRequest<Item> = NSFetchRequest(entityName: "Item")
+            fetchRequest.predicate = NSPredicate(format: "completed = true")
+            let awardCount = count(for: fetchRequest)
+            return awardCount >= award.value
+        
+        default:
+            // fatalError("Unkown award criterion: \(award.criterion)")
+            return false
+        }
     }
 }
