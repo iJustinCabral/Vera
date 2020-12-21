@@ -9,7 +9,7 @@ import SwiftUI
 import SpriteKit
 
 struct StarFieldView: View {
-    
+
     var body: some View {
         EmitterView()
             .edgesIgnoringSafeArea(.all)
@@ -33,8 +33,6 @@ struct EmitterView: UIViewRepresentable {
         particlesLayer.emitterSize = CGSize(width: 1648.0, height: 1112.0)
         particlesLayer.emitterMode = .volume
         particlesLayer.renderMode = .oldestLast
-
-
 
         let image1 = UIImage(systemName: "circlebadge.fill")?.cgImage
 

@@ -8,12 +8,12 @@
 import Foundation
 
 extension Date {
-    
+
     static var dayNumber: Double {
         let date = Date()
         let cal = Calendar.current
         guard let day = cal.ordinality(of: .day, in: .year, for: date) else { return 1 }
-        
+
         return Double(day)
     }
 
@@ -26,7 +26,7 @@ extension Date {
 
         return end - start
     }
-    
+
     func formattedDateFromString(dateString: String, withFormat format: String) -> String? {
 
         let inputFormatter = DateFormatter()
@@ -42,12 +42,12 @@ extension Date {
 
         return nil
     }
-    
+
     static func numberForDate(_ date: Date) -> Double {
-        
+
         let cal = Calendar.current
         guard let day = cal.ordinality(of: .day, in: .year, for: date) else { return 1 }
-        
+
         return Double(day)
     }
 }
