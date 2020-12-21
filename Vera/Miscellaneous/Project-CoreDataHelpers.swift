@@ -12,7 +12,7 @@ extension Project {
     static let colors = ["Pink", "Purple", "Red", "Orange", "Gold", "Green", "Teal", "Light Blue", "Dark Blue", "Midnight", "Dark Gray", "Gray"]
     
     var projectTitle: String {
-        title ?? "Class"
+        title ?? NSLocalizedString("Class", comment: "The title of the class")
     }
     
     var projectDetail: String {
@@ -67,6 +67,13 @@ extension Project {
         
         let completedItems = originalItems.filter(\.completed)
         return Double(completedItems.count) / Double(originalItems.count)
+    }
+    
+    var progressAmount: Double {
+        let today = Date.dayNumber
+        let end = Date.numberForDate(finishDate ?? Date().addingTimeInterval(86000))
+        print("\(today / end)")
+        return today / end
     }
     
     static var example: Project {

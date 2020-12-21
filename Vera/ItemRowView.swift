@@ -14,10 +14,16 @@ struct ItemRowView: View {
     
     var icon: some View {
         if item.completed {
-            return Image(systemName: "checkmark.circle")
+            return Image(systemName: "checkmark.circle.fill")
+                .foregroundColor(Color(project.projectColor))
+        } else if item.priority == 1 {
+            return Image(systemName: "circlebadge.fill")
+                .foregroundColor(Color(project.projectColor))
+        } else if item.priority == 2 {
+            return Image(systemName: "diamond.fill")
                 .foregroundColor(Color(project.projectColor))
         } else if item.priority == 3 {
-            return Image(systemName: "exclamationmark.triangle")
+            return Image(systemName: "exclamationmark.triangle.fill")
                 .foregroundColor(Color(project.projectColor))
         } else {
             return Image(systemName: "checkmark.circle")
@@ -28,7 +34,11 @@ struct ItemRowView: View {
     var body: some View {
         NavigationLink(destination: EditItemView(item: item)) {
             Label {
-                Text(item.itemTitle)
+                if item.completed {
+                    Text(item.itemTitle).strikethrough()
+                } else {
+                    Text(item.itemTitle)
+                }
             }
             icon: {
                 icon

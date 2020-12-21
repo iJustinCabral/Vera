@@ -77,13 +77,13 @@ struct EditProjectView: View {
                 .padding(.vertical)
             }
             
-            Section(footer: Text("Finishing a class moves it from Current to Finished tab; deleting it removes the class entirely.")) {
-                Button(project.closed ? "Reopen this class" : "Finish this class") {
+            Section(footer: Text("Archiving a class moves it from Classes to Archive tab; deleting it removes the class entirely.")) {
+                Button(project.closed ? "Unarchive class" : "Archive class") {
                     project.closed.toggle()
                     update()
                 }
                 
-                Button("Delete this class") {
+                Button("Delete class") {
                     showingDeleteConfirm.toggle()
                 }
                 .accentColor(.red)

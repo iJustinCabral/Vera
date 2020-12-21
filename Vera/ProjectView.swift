@@ -16,7 +16,7 @@ struct ProjectView: View {
     @State private var sortOrder = Item.SortOrder.optimized
     
     static let classesTag: String? = "Classes"
-    static let finishedTag: String? = "Finished"
+    static let archiveTag: String? = "Archive"
     
     let showClosedProjects: Bool
     let projects: FetchRequest<Project>
@@ -33,8 +33,24 @@ struct ProjectView: View {
         NavigationView {
             Group {
                 if projects.wrappedValue.isEmpty {
-                    Text("There's nothing here right now ")
-                        .foregroundColor(.secondary)
+                    ZStack {
+                        Color.systemGroupedBackground.edgesIgnoringSafeArea(.all)
+                    Rectangle()
+                        .fill(Color.white)
+                        .frame(width: 300, height: 260)
+                        .cornerRadius(12)
+                        .shadow(color: Color.black.opacity(0.2), radius: 4)
+                        .overlay(
+                            VStack {
+                                Text("No Classes")
+                                    .font(.largeTitle)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.primary)
+                                Text(showClosedProjects ? "The class archive is empty." : "There are no classes available")
+                                    .foregroundColor(.secondary)
+                            }
+                        )
+                    }
                 } else {
             
                     List {
@@ -86,7 +102,12 @@ struct ProjectView: View {
                                 dataController.save()
                             }
                         } label : {
-                            Label("Add Class", systemImage: "plus")
+                            HStack {
+                                Text("Add")
+                                Image(systemName: "plus")
+                                    .aspectRatio(contentMode: .fit)
+                                    .imageScale(.large)
+                            }
                         }
                     }
                 }
@@ -96,7 +117,7 @@ struct ProjectView: View {
                         showingSortOrder.toggle()
                     } label: {
                         HStack {
-                            Image(systemName: "line.horizontal.3.decrease.circle.fill")
+                            Image(systemName: "line.horizontal.3.decrease")
                                 .aspectRatio(contentMode: .fit)
                                 .imageScale(.large)
                             Text("Sort")

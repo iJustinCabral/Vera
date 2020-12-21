@@ -18,19 +18,19 @@ struct ContentView: View {
             HomeView()
                 .tag(HomeView.tag)
                 .tabItem {
-                    Image(systemName: "house")
+                    Image(systemName: "pencil.slash")
                     Text("Home")
                 }
             
             ProjectView(showClosedProjects: false)
                 .tag(ProjectView.classesTag)
                 .tabItem {
-                    Image(systemName: "pencil.slash")
+                    Image(systemName: "books.vertical")
                     Text("Classes")
                 }
             
             ProjectView(showClosedProjects: true)
-                .tag(ProjectView.finishedTag)
+                .tag(ProjectView.archiveTag)
                 .tabItem {
                     Image(systemName: "archivebox")
                     Text("Archive")

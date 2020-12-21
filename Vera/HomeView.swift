@@ -14,6 +14,8 @@ struct HomeView: View {
     @FetchRequest(entity: Project.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Project.title, ascending: true)],
                   predicate: NSPredicate(format: "closed = false")) var projects: FetchedResults<Project>
     
+    @State private var isShowingSettings = false
+    
     static let tag: String? = "Home"
     let items: FetchRequest<Item>
     let rows = [GridItem(.fixed(100))]
@@ -26,21 +28,24 @@ struct HomeView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHGrid(rows: rows) {
                             ForEach(projects) { project in
-                                VStack(alignment: .leading) {
-                                    Text("\(project.projectItems.count) items")
-                                        .font(.caption)
-                                        .foregroundColor(.secondary)
-                                    
-                                    Text(project.projectTitle)
-                                        .font(.title2)
-                                    
-                                    ProgressView(value: project.completionAmount)
-                                        .accentColor(Color(project.projectColor))
+                                NavigationLink(destination: EditProjectView(project: project)) {
+                                    VStack(alignment: .leading) {
+                                        Text("\(project.projectItems.count) items")
+                                            .font(.caption)
+                                            .foregroundColor(.secondary)
+                                        
+                                        Text(project.projectTitle)
+                                            .font(.title2)
+                                            .foregroundColor(.primary)
+                                        
+                                        ProgressView(value: project.completionAmount)
+                                            .accentColor(Color(project.projectColor))
+                                    }
+                                    .padding()
+                                    .background(Color.secondaryGroupedBackground)
+                                    .cornerRadius(10)
+                                    .shadow(color: Color.black.opacity(0.2), radius: 5)
                                 }
-                                .padding()
-                                .background(Color.secondaryGroupedBackground)
-                                .cornerRadius(10)
-                                .shadow(color: Color.black.opacity(0.2), radius: 5)
                             }
                         }
                         .padding(.horizontal)
@@ -50,12 +55,22 @@ struct HomeView: View {
                     
                     VStack(alignment: .leading) {
                         list("Up next", for: items.wrappedValue.prefix(4))
-                        list("More items to complete", for: items.wrappedValue.dropFirst(4))
+                        list("Due later", for: items.wrappedValue.dropFirst(4))
                     }.padding(.horizontal)
                 }
             }
             .background(Color.systemGroupedBackground.ignoresSafeArea())
             .navigationTitle("Home")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { isShowingSettings.toggle() }) {
+                        Image(systemName: "gear")
+                    }
+                }
+            }
+            .sheet(isPresented: $isShowingSettings) {
+                SettingsView()
+            }
         }
     }
     
@@ -74,7 +89,7 @@ struct HomeView: View {
     }
     
     @ViewBuilder
-    func list(_ title: String, for items: FetchedResults<Item>.SubSequence) -> some View {
+    func list(_ title: LocalizedStringKey, for items: FetchedResults<Item>.SubSequence) -> some View {
         if items.isEmpty {
             EmptyView()
         } else {

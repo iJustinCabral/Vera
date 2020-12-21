@@ -49,6 +49,21 @@ struct EditItemView: View {
                     Text("Medium").tag(2)
                     Text("High").tag(3)
                 }.pickerStyle(SegmentedPickerStyle())
+                
+                HStack {
+                    Spacer()
+                    Image(systemName: "circlebadge.fill")
+                        .foregroundColor(Color(item.project?.projectColor ?? "Light Blue"))
+                    Spacer()
+                    Spacer()
+                    Image(systemName: "diamond.fill")
+                        .foregroundColor(Color(item.project?.projectColor ?? "Light Blue"))
+                    Spacer()
+                    Spacer()
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(Color(item.project?.projectColor ?? "Red"))
+                    Spacer()
+                }
             }
             
             Section {
