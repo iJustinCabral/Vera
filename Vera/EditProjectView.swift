@@ -42,19 +42,24 @@ struct EditProjectView: View {
                 TextField("Example: Fall 2020 ", text: $detail.onChange(update))
             }
 
-            Section(header: Text("Start - Finish Date")) {
+            Section(header: Text("Class time")) {
                 DatePicker(selection: $startDate.onChange(update),
                            in: ...Date().addingTimeInterval(TimeInterval(hugeNumber)),
-                           displayedComponents: .date) {
-                    Text("Start Date")
+                           displayedComponents: .hourAndMinute ) {
+                    Text("Start Time")
                 }
 
                 DatePicker(selection: $finishDate.onChange(update),
                            in: ...Date().addingTimeInterval(TimeInterval(hugeNumber)),
-                           displayedComponents: .date) {
-                    Text("Finish Date")
+                           displayedComponents: .hourAndMinute) {
+                    Text("End Time")
                 }
 
+            }
+            
+            Section(header: Text("Class schedule")) {
+                Text("M - T - W - T - F")
+                    .font(.title)
             }
 
             Section(header: Text("Class color")) {

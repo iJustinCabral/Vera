@@ -21,6 +21,12 @@ struct ContentView: View {
                     Image(systemName: "pencil.slash")
                     Text("Home")
                 }
+            ScheduleView()
+                .tag(ScheduleView.tag)
+                .tabItem {
+                    Image(systemName: "calendar")
+                    Text("Schedule")
+                }
 
             ProjectView(showClosedProjects: false)
                 .tag(ProjectView.classesTag)
@@ -36,11 +42,11 @@ struct ContentView: View {
                     Text("Archive")
                 }
 
-            AwardsView()
-                .tag(AwardsView.tag)
+            SettingsView()
+                .tag(SettingsView.tag)
                 .tabItem {
-                    Image(systemName: "rosette")
-                    Text("Awards")
+                    Image(systemName: "gear")
+                    Text("Settings")
                 }
         }
     }

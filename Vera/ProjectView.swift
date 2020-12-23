@@ -34,7 +34,7 @@ struct ProjectView: View {
         ZStack {
             Color.systemGroupedBackground.edgesIgnoringSafeArea(.all)
         Rectangle()
-            .fill(Color.white)
+            .fill(Color.secondaryGroupedBackground)
             .frame(width: 300, height: 260)
             .cornerRadius(12)
             .shadow(color: Color.black.opacity(0.2), radius: 4)

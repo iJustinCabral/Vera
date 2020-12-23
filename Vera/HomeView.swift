@@ -5,8 +5,6 @@
 //  Created by Justin Cabral on 12/18/20.
 //
 
-// swiftlint:disable multiple_closures_with_trailing_closure
-
 import SwiftUI
 import CoreData
 
@@ -17,8 +15,6 @@ struct HomeView: View {
                   sortDescriptors: [NSSortDescriptor(keyPath: \Project.title, ascending: true)],
                   predicate: NSPredicate(format: "closed = false"))
     var projects: FetchedResults<Project>
-
-    @State private var isShowingSettings = false
 
     static let tag: String? = "Home"
     let items: FetchRequest<Item>
@@ -46,11 +42,6 @@ struct HomeView: View {
             .background(Color.systemGroupedBackground.ignoresSafeArea())
             .navigationTitle("Home")
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: { isShowingSettings.toggle() }) {
-                        Image(systemName: "gear")
-                    }
-                }
 
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Add Data") {
@@ -58,9 +49,6 @@ struct HomeView: View {
                        try? dataController.createSampleData()
                    }
                 }
-            }
-            .sheet(isPresented: $isShowingSettings) {
-                SettingsView()
             }
         }
     }
